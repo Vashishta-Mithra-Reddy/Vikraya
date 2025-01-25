@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { DatePicker } from "@/components/ui/date-picker"
 import { Textarea } from "@/components/ui/textarea"
 import { ImageUpload } from "@/components/ImageUpload"
 
@@ -19,7 +18,7 @@ const CreateAuction = () => {
   const [minBid, setMinBid] = useState("")
   const [quantity, setQuantity] = useState("")
   const [unit, setUnit] = useState("kg")
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined)
+  const [endDate, setEndDate] = useState<string>("") // Change to string to handle date input
   const [location, setLocation] = useState("")
   const [images, setImages] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
@@ -52,7 +51,8 @@ const CreateAuction = () => {
 
       // Calculate duration in seconds
       const now = new Date()
-      const durationInSeconds = endDate ? Math.floor((endDate.getTime() - now.getTime()) / 1000) : 0
+      const endDateObj = new Date(endDate)
+      const durationInSeconds = endDateObj ? Math.floor((endDateObj.getTime() - now.getTime()) / 1000) : 0
 
       // Interact with the smart contract (unchanged)
       const contract = new ethers.Contract(contractAddress, abi, signer)
@@ -68,7 +68,7 @@ const CreateAuction = () => {
         minBid,
         quantity,
         unit,
-        endDate: endDate?.toISOString(),
+        endDate: endDateObj.toISOString(),
         location,
         images,
         createdAt: new Date().toISOString(),
@@ -142,7 +142,13 @@ const CreateAuction = () => {
           </div>
           <div className="space-y-2">
             <Label htmlFor="endDate">Auction End Date</Label>
-            <DatePicker date={endDate} setDate={setEndDate} />
+            <Input
+              id="endDate"
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="location">Location</Label>
@@ -168,4 +174,3 @@ const CreateAuction = () => {
 }
 
 export default CreateAuction
-
