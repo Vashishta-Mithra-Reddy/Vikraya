@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono,Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import { AuthProvider } from "@/context/AuthContext";

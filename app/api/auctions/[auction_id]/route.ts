@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server"
 
 const auctions = [
   {
@@ -16,8 +16,8 @@ const auctions = [
     grade: "B",
     currentBid: "0.3",
     images: [
-        "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", 
-        "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"
+      "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO",
+      "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO",
     ],
   },
   {
@@ -64,24 +64,21 @@ const auctions = [
       "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO",
     ],
   },
-];
+]
 
-export async function GET(
-  request: Request,
-  { params }: { params: { auction_id: string } }
-) {
-  // Ensure the params are awaited correctly before using them
-  const { auction_id } = await params;
+export async function GET(request: NextRequest, { params }: { params: { auction_id: string } }) {
+  const { auction_id } = await params
 
-  console.log("Received auction_id:", auction_id);
+  console.log("Received auction_id:", auction_id)
 
   // Find the auction based on the auction_id
-  const auction = auctions.find(a => a.id === auction_id);
+  const auction = auctions.find((a) => a.id === auction_id)
 
   if (!auction) {
-    console.log("No auction found for ID:", auction_id);
-    return NextResponse.json({ error: "Auction not found" }, { status: 404 });
+    console.log("No auction found for ID:", auction_id)
+    return NextResponse.json({ error: "Auction not found" }, { status: 404 })
   }
 
-  return NextResponse.json(auction);
+  return NextResponse.json(auction)
 }
+
