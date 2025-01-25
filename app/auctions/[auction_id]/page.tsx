@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+} from '@/components/ui/carousel';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 
 interface AuctionData {
   id: string;
@@ -32,7 +32,7 @@ interface AuctionData {
 const AuctionDetails = () => {
   const { auction_id } = useParams();
   const [auctionData, setAuctionData] = useState<AuctionData | null>(null);
-  const [bidAmount, setBidAmount] = useState("");
+  const [bidAmount, setBidAmount] = useState('');
 
   useEffect(() => {
     const fetchAuctionData = async () => {
@@ -44,7 +44,7 @@ const AuctionDetails = () => {
         const data = await response.json();
         setAuctionData(data);
       } catch (error) {
-        console.error("Failed to fetch auction data:", error);
+        console.error('Failed to fetch auction data:', error);
       }
     };
 
@@ -55,27 +55,27 @@ const AuctionDetails = () => {
 
   const handlePlaceBid = async () => {
     if (!bidAmount) {
-      alert("Please enter a bid amount.");
+      alert('Please enter a bid amount.');
       return;
     }
 
     try {
       const response = await fetch(`/api/auctions/${auction_id}/bid`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ bidAmount }),
       });
 
       if (response.ok) {
-        alert("Bid placed successfully!");
-        setBidAmount("");
+        alert('Bid placed successfully!');
+        setBidAmount('');
       } else {
-        alert("Failed to place bid.");
+        alert('Failed to place bid.');
       }
     } catch (error) {
-      console.error("Error placing bid:", error);
+      console.error('Error placing bid:', error);
     }
   };
 
@@ -110,23 +110,24 @@ const AuctionDetails = () => {
           </Carousel>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl font-bold">{cropName}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            <p>
+            <div>
               <span className="font-semibold">Location:</span> {location}
-            </p>
-            <p>
-              <span className="font-semibold">Grade:</span>{" "}
+            </div>
+            <div>
+              <span className="font-semibold">Grade:</span>{' '}
               <Badge className="bg-green-500 text-white">{grade}</Badge>
-            </p>
-            <p>
-              <span className="font-semibold">Current Bid:</span> {currentBid} ETH
-            </p>
+            </div>
+            <div>
+              <span className="font-semibold">Current Bid:</span> {currentBid}{' '}
+              ETH
+            </div>
           </div>
         </CardContent>
       </Card>
