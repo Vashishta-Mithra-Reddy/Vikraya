@@ -66,8 +66,8 @@ const auctions = [
   },
 ]
 
-export async function GET(request: NextRequest, { params }: { params: { auction_id: string } }) {
-  const { auction_id } = await params
+export async function GET(request: NextRequest, context: { params: { auction_id: string } }) {
+  const { auction_id } = await context.params
 
   console.log("Received auction_id:", auction_id)
 
