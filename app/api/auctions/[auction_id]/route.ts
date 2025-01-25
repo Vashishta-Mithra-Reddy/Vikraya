@@ -66,12 +66,9 @@ const auctions = [
   },
 ]
 
-export async function GET(request: NextRequest, context: { params: { auction_id: string } }) {
-  const { auction_id } = await context.params
+export async function GET(request: NextRequest, { params }: { params: Promise<{ auction_id: string }> }) {
+  const auction_id = (await params).auction_id
 
-  console.log("Received auction_id:", auction_id)
-
-  // Find the auction based on the auction_id
   const auction = auctions.find((a) => a.id === auction_id)
 
   if (!auction) {
