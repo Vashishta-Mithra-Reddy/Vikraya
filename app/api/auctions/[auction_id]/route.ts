@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+// Sample data for auctions
 const auctions = [
     {
       id: "1",
@@ -67,18 +68,16 @@ const auctions = [
         ],
       },
   ];
-  
-export async function GET(
-    request: Request, 
-    { params }: { params: { auction_id: string } }
-) {
-    console.log("Received auction_id:", params.auction_id);
+
+export async function GET(request: Request, context: { params: { auction_id: string } }) {
+    const { auction_id } = await context.params;  // Await the context.params
+    console.log("Received auction_id:", auction_id);
     console.log("Available auctions:", auctions);
 
-    const auction = auctions.find(a => a.id === params.auction_id);
+    const auction = auctions.find(a => a.id === auction_id);
     
     if (!auction) {
-        console.log("No auction found for ID:", params.auction_id);
+        console.log("No auction found for ID:", auction_id);
         return NextResponse.json({ error: "Auction not found" }, { status: 404 });
     }
     
