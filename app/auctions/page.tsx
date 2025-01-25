@@ -8,7 +8,7 @@ export default function AuctionsPage() {
       location: "Punjab, India",
       grade: "A+",
       currentBid: "5000",
-      images: ["/wheat.png", "/placeholder.svg?height=400&width=600"],
+      images: ["wheat.png", "/placeholder.svg?height=400&width=600"],
       endDate: "2025-02-15T18:30:00.000Z",
       quantity: "1000",
       unit: "kg",
@@ -71,7 +71,7 @@ export default function AuctionsPage() {
   ]
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 wrapper">
       <h1 className="text-4xl font-bold text-center my-8">Active Auctions</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {auctions.map((auction) => (
