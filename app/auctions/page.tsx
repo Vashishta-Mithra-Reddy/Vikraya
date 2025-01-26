@@ -72,7 +72,7 @@ export default function AuctionsPage() {
 
   return (
     <div className="container mx-auto px-4 wrapper">
-      <h1 className="text-4xl font-bold text-center my-8">Active Auctions</h1>
+      <h1 className="text-4xl font-bold text-left my-8 mb-12">Auctions</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {auctions.map((auction) => (
           <AuctionCard key={auction.id} {...auction} />

@@ -18,7 +18,7 @@ const CreateAuction = () => {
   const [minBid, setMinBid] = useState("")
   const [quantity, setQuantity] = useState("")
   const [unit, setUnit] = useState("kg")
-  const [grade, setGrade] = useState("D")
+  const [grade, setGrade] = useState("B")
   const [endDate, setEndDate] = useState<string>("") 
   const [location, setLocation] = useState("")
   const [images, setImages] = useState<string[]>([])
