@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ImageUpload } from "@/components/ImageUpload"
 import { getAuth } from "firebase/auth"
+import toast from "react-hot-toast"
 
 const CreateAuction = () => {
   const [cropName, setCropName] = useState("")
@@ -50,7 +51,7 @@ const CreateAuction = () => {
       const user = auth.currentUser
 
       if (!user) {
-        alert("User is not authenticated")
+        toast.error("User is not authenticated")
         return
       }
 
@@ -103,11 +104,11 @@ const CreateAuction = () => {
         })
       })
 
-      alert("Auction created successfully!")
+      toast.success("Auction created successfully!")
       router.push("/auctions")
     } catch (err: any) {
       console.error(err)
-      alert(`Error: ${err.message}`)
+      toast.error(`Error: ${err.message}`)
     } finally {
       setLoading(false)
     }

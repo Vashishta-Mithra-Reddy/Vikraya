@@ -1,74 +1,72 @@
-import AuctionCard from "@/components/AuctionCard"
+"use client"
+
+import { collection, doc, getDocs, getDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { db } from "@/utils/firebase";
+import AuctionCard from "@/components/AuctionCard";
+
+// Define the auction type
+interface Auction {
+  id: string;
+  cropName: string;
+  location: string;
+  grade: string;
+  currentBid: string;
+  images: string[];
+  endDate: string;
+  quantity: string;
+  unit: string;
+}
 
 export default function AuctionsPage() {
-  const auctions = [
-    {
-      id: "1",
-      cropName: "Wheat",
-      location: "Punjab, India",
-      grade: "A+",
-      currentBid: "5000",
-      images: ["https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"],
-      endDate: "2025-02-15T18:30:00.000Z",
-      quantity: "1000",
-      unit: "kg",
-    },
-    {
-      id: "2",
-      cropName: "Rice",
-      location: "Karnataka, India",
-      grade: "B",
-      currentBid: "3000",
-      images: ["https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"],
-      endDate: "2025-02-20T15:00:00.000Z",
-      quantity: "800",
-      unit: "kg",
-    },
-    {
-      id: "3",
-      cropName: "Maize",
-      location: "Maharashtra, India",
-      grade: "A",
-      currentBid: "4500",
-      images: ["https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"],
-      endDate: "2025-02-18T12:00:00.000Z",
-      quantity: "1200",
-      unit: "kg",
-    },
-    {
-      id: "4",
-      cropName: "Soybean",
-      location: "Madhya Pradesh, India",
-      grade: "B+",
-      currentBid: "6000",
-      images: ["https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"],
-      endDate: "2025-02-22T09:00:00.000Z",
-      quantity: "900",
-      unit: "kg",
-    },
-    {
-      id: "5",
-      cropName: "Cotton",
-      location: "Gujarat, India",
-      grade: "A",
-      currentBid: "8000",
-      images: ["https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"],
-      endDate: "2025-02-25T14:30:00.000Z",
-      quantity: "500",
-      unit: "kg",
-    },
-    {
-      id: "6",
-      cropName: "Sugarcane",
-      location: "Uttar Pradesh, India",
-      grade: "B",
-      currentBid: "2500",
-      images: ["https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO", "https://o4jmgn9583.ufs.sh/f/isrfe0CRqzCMKllxRke0Z7YIwT3CG9l8qB5nDUmeJEX6igWO"],
-      endDate: "2025-02-28T11:00:00.000Z",
-      quantity: "2000",
-      unit: "kg",
-    },
-  ]
+  const [auctions, setAuctions] = useState<Auction[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAuctions = async () => {
+      try {
+        const auctionsCollection = collection(db, "auctions");
+        const auctionsSnapshot = await getDocs(auctionsCollection);
+
+        const auctionDataPromises = auctionsSnapshot.docs.map(async (auctionDoc) => {
+          const auction = auctionDoc.data();
+          const aId = String(auction.auctionId);
+
+          const bidDocRef = doc(db, "bids", aId);
+          const bidDocSnapshot = await getDoc(bidDocRef);
+
+          const currentBid = bidDocSnapshot.exists() ? bidDocSnapshot.data()?.bidAmount || "0" : "0";
+
+
+          // Combine auction and bid data
+          return {
+            id: auction.auctionId || auctionDoc.id,
+            cropName: auction.cropName,
+            location: auction.location,
+            grade: auction.grade,
+            currentBid: currentBid, 
+            images: auction.images || [],
+            endDate: auction.endDate,
+            quantity: auction.quantity,
+            unit: auction.unit,
+          };
+        });
+
+        const auctionData = await Promise.all(auctionDataPromises);
+        setAuctions(auctionData);
+      } catch (error) {
+        console.error("Error fetching auctions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAuctions();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container mx-auto px-4 wrapper">
@@ -79,6 +77,5 @@ export default function AuctionsPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }
-

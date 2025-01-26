@@ -74,7 +74,7 @@ const AuctionCard: React.FC<AuctionCardProps> = (props) => {
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-bold">{cropName}</h3>
           <Badge variant="outline" className="bg-blue-100 text-blue-800 text-sm border-blue-300 px-3 py-1">
-            ₹{currentBid}
+          Ξ {currentBid}
           </Badge>
         </div>
         <div className="space-y-1 text-sm">
