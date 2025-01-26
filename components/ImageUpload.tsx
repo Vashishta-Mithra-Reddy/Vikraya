@@ -66,7 +66,7 @@ export function ImageUpload({ images, setImages }: ImageUploadProps) {
         ))}
       </div>
       <div className="flex items-center space-x-4">
-        <Input type="file" accept="image/*" multiple onChange={handleUpload} disabled={uploading} />
+        <Input className="hover:cursor-pointer" type="file" accept="image/*" multiple onChange={handleUpload} disabled={uploading} />
         {uploading && <p className="text-sm text-muted-foreground">Uploading...</p>}
       </div>
     </div>
