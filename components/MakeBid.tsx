@@ -104,7 +104,7 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
   };
 
   return (
-    <Card className="max-w-md mx-auto mt-6">
+    <Card className="max-w-3xl mx-auto mt-6">
       <CardHeader>
         <CardTitle className="text-xl">Place Bid</CardTitle>
       </CardHeader>

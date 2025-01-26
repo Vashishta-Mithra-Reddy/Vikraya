@@ -2,6 +2,10 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { db } from '@/utils/firebase'; 
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import MakeBid from '@/components/MakeBid';
 import {
   Card,
   CardContent,
@@ -33,24 +37,46 @@ const AuctionDetails = () => {
   const { auction_id } = useParams();
   const [auctionData, setAuctionData] = useState<AuctionData | null>(null);
   const [bidAmount, setBidAmount] = useState('');
+  const auth = getAuth()
+  const user = auth.currentUser
+  const userEmail = user?.email || "";
+
+
 
   useEffect(() => {
     const fetchAuctionData = async () => {
       try {
-        const response = await fetch(`/api/auctions/${auction_id}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch auction data');
+        if (!auction_id) return;
+
+        const auctionDocRef = doc(db, 'auctions', String(auction_id));
+        const auctionDocSnap = await getDoc(auctionDocRef);
+
+        if (auctionDocSnap.exists()) {
+          const auctionData = auctionDocSnap.data();
+          const aId = String(auction_id);
+
+          const bidDocRef = doc(db, "bids", aId);
+          const bidDocSnapshot = await getDoc(bidDocRef);
+
+          const currentBid = bidDocSnapshot.exists() ? bidDocSnapshot.data()?.bidAmount || "0" : "0";
+          // Assuming currentBid is already available in the auction document
+          setAuctionData({
+            id: auctionDocSnap.id,
+            cropName: auctionData.cropName,
+            location: auctionData.location,
+            grade: auctionData.grade,
+            currentBid: currentBid || '0', 
+            images: auctionData.images || [],
+          });
+        } else {
+          console.error('Auction not found!');
         }
-        const data = await response.json();
-        setAuctionData(data);
       } catch (error) {
         console.error('Failed to fetch auction data:', error);
       }
     };
 
-    if (auction_id) {
-      fetchAuctionData();
-    }
+    fetchAuctionData();
   }, [auction_id]);
 
   const handlePlaceBid = async () => {
@@ -132,24 +158,8 @@ const AuctionDetails = () => {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Place Your Bid</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Input
-            type="number"
-            placeholder="Enter your bid amount (ETH)"
-            value={bidAmount}
-            onChange={(e) => setBidAmount(e.target.value)}
-          />
-        </CardContent>
-        <CardFooter>
-          <Button className="w-full" onClick={handlePlaceBid}>
-            Submit Bid
-          </Button>
-        </CardFooter>
-      </Card>
+      <MakeBid auctionId={String(auction_id)} userEmail={userEmail}/>
+ 
     </div>
   );
 };
