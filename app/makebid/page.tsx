@@ -2,6 +2,6 @@ import MakeBid from "@/components/MakeBid";
 
 export default function MakeBidPage() {
     return <div>
-        <MakeBid auctionId={"0xaa0de3686be8c8220a415c949c7fea727f4046d22ec4e6044a19d5b3b943f317"} />
+        <MakeBid auctionId={"0x6a8378c6000ee6134bc6570992d550322823aae55bca7527ac4e7866472c5dcc"} />
     </div>;
 }
