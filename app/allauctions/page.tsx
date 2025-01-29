@@ -33,7 +33,7 @@ const ABI = [
 ];
 
 // Contract details
-const CONTRACT_ADDRESS = "0xe91596b3faff58a4249be3cd0967edc9505ad906";
+const CONTRACT_ADDRESS = "0x8C44598b53C5CafC5fa437Ee360aA6BF6C70F3ee";
 
 interface AuctionItem {
   id: number;

@@ -12,7 +12,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 interface MakeBidProps {
   auctionId: string;
-  userEmail: string; // Pass user email as a prop
+  userEmail: string; 
 }
 
 const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
@@ -21,7 +21,7 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   // Smart contract details
-  const contractAddress = "0xe91596b3faff58a4249be3cd0967edc9505ad906";
+  const contractAddress = "0x8C44598b53C5CafC5fa437Ee360aA6BF6C70F3ee";
   const abi = [
     {
       "inputs":[{"internalType": "uint256",name: "_id",type: "uint256"}],

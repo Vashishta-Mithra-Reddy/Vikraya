@@ -4,6 +4,7 @@ import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "@/utils/firebase";
 import AuctionCard from "@/components/AuctionCard";
+import Loading from "../loading";
 
 // Define the auction type
 interface Auction {
@@ -48,7 +49,7 @@ export default function AuctionsPage() {
             images: auction.images || [],
             endDate: auction.endDate,
             quantity: auction.quantity,
-            unit: auction.unit,
+            unit: auction.unit
           };
         });
 
@@ -65,7 +66,7 @@ export default function AuctionsPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   return (

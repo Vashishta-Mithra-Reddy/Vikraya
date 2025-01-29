@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ethers } from "ethers"
 import { useRouter } from "next/navigation"
-import { db } from "@/utils/firebase"
+import { db, auth } from "@/utils/firebase"
 import { doc, setDoc, getDoc, updateDoc, runTransaction } from "firebase/firestore"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ImageUpload } from "@/components/ImageUpload"
-import { getAuth } from "firebase/auth"
 import toast from "react-hot-toast"
 
 const CreateAuction = () => {
@@ -24,10 +23,13 @@ const CreateAuction = () => {
   const [location, setLocation] = useState("")
   const [images, setImages] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+  const isCancelled = false;
+  const isPaused = false;
+  const isClosed = false;
   const router = useRouter()
 
 
-  const contractAddress = "0xe91596b3faff58a4249be3cd0967edc9505ad906"
+  const contractAddress = "0x8C44598b53C5CafC5fa437Ee360aA6BF6C70F3ee"
   const abi = [
     {
       inputs: [
@@ -47,7 +49,6 @@ const CreateAuction = () => {
     setLoading(true)
 
     try {
-      const auth = getAuth()
       const user = auth.currentUser
 
       if (!user) {
@@ -98,8 +99,11 @@ const CreateAuction = () => {
           location,
           images,
           createdAt: new Date().toISOString(),
-          transactionHash: "tx.hash",
-          farmerAddress: "await signer.getAddress()",
+          transactionHash: tx.hash,
+          farmerAddress: await signer.getAddress(),
+          isCancelled,
+          isPaused,
+          isClosed,
           userId, 
         })
       })

@@ -1,12 +1,12 @@
-// app/loading.tsx (Global Loading)
+import { Loader2 } from "lucide-react"
+
 export default function Loading() {
-    return (
-      <div className="loader-container h-dvh bg-red-950">
-        <div className="loader">
-          <div className="spinner"></div>
-          <p>Loading...</p>
-        </div>
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-white backdrop-blur-sm ">
+      <div className="text-center">
+        <Loader2 className="h-12 w-12 animate-spin text-black mx-auto" />
       </div>
-    );
-  }
-  
+    </div>
+  )
+}
+
