@@ -128,7 +128,7 @@ const ProfilePage = () => {
 
       const auctionRef = doc(db, "auctions", currentAction.auctionId);
       await updateDoc(auctionRef, {
-        [`is${currentAction.type.charAt(0).toUpperCase() + currentAction.type.slice(1)}`]: true,
+        [`is${currentAction.type.charAt(0).toUpperCase() + currentAction.type.slice(1)}d`]: true,
       });
 
       toast.success(`Action successfully.`);
@@ -220,7 +220,7 @@ const ProfilePage = () => {
                       Cancel Auction
                     </Button>
                   )}
-                  {(auction.isPaused || isEndDatePassed) && !auction.isClosed && (
+                  {(auction.isPaused || isEndDatePassed) && !auction.isClosed && !auction.isCancelled && (
                     <Button
                       disabled={loading}
                       onClick={() => handleAuctionAction(auction.id, "close")}
