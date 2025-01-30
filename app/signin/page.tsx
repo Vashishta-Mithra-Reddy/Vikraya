@@ -41,7 +41,8 @@ export default function SignInPage() {
       const token = await getIdToken(userCredential.user); // Get the Firebase ID token
       await setToken(token); // Set the token via API
       toast.success("Signed in successfully!");
-      router.push(redirectPath);
+      // router.push(redirectPath);
+      window.location.href = redirectPath;
     } catch (err: any) {
       const message = formatErrorMessage(err.message);
       toast.error(message);
@@ -55,7 +56,8 @@ export default function SignInPage() {
       const token = await getIdToken(userCredential.user); // Get the Firebase ID token
       await setToken(token); // Set the token via API
       toast.success("Signed in with Google!");
-      router.push(redirectPath);
+      // router.push(redirectPath);
+      window.location.href = redirectPath;
     } catch (err: any) {
       const message = formatErrorMessage(err.message);
       toast.error(message);
@@ -70,6 +72,7 @@ export default function SignInPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ token }),
+        credentials: 'include'
       });
       if (!response.ok) {
         throw new Error("Failed to set authentication token.");
