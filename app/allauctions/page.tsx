@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { ethers, Network } from 'ethers';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Loading from '../loading';
 
 // ABI for the Auction contract
 const ABI = [
@@ -32,6 +33,8 @@ const ABI = [
   }
 ];
 
+const infura = process.env.INFURA_KEY;
+
 // Contract details
 const CONTRACT_ADDRESS = "0x8C44598b53C5CafC5fa437Ee360aA6BF6C70F3ee";
 
@@ -50,14 +53,13 @@ export default function AuctionManagement() {
   const [auctions, setAuctions] = useState<AuctionItem[]>([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
-        if (!window.ethereum) {
-          throw new Error("MetaMask not found");
-        }
+        
 
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.InfuraWebSocketProvider("sepolia",infura);
         const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
         const auctionCount = await contract.auctionCounter();
@@ -92,11 +94,11 @@ export default function AuctionManagement() {
     return new Date(Number(timestamp) * 1000).toLocaleString();
   };
 
-  if (loading) return <div>Loading auctions...</div>;
+  // if (loading) return <Loading/>;
 
   return (
     <div className="container mx-auto p-4 wrapper">
-      <h1 className="text-4xl font-bold mb-10 mt-6">Active Auctions</h1>
+      <h1 className="text-4xl font-bold mb-10 mt-6">All Auctions</h1>
       {auctions.length === 0 ? (
         <p>No auctions found.</p>
       ) : (

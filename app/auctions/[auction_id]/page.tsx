@@ -23,6 +23,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import Loading from './loading';
 
 interface AuctionData {
   id: string;
@@ -106,14 +107,14 @@ const AuctionDetails = () => {
   };
 
   if (!auctionData) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   const { cropName, location, grade, currentBid, images } = auctionData;
 
   return (
     <div className="max-w-3xl mx-auto p-4 space-y-6">
-      <Card>
+      <Card className='pt-5'>
         <CardContent>
           <Carousel className="w-full h-64">
             <CarouselContent>

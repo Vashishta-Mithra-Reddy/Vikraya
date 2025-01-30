@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import * as admin from "@/utils/firebaseAdmin"; // Import Firebase Admin
-import crypto from "crypto"; // For generating OTP
-import nodemailer from "nodemailer"; // To send OTP via email
+import * as admin from "@/utils/firebaseAdmin"; 
+import crypto from "crypto"; 
+import nodemailer from "nodemailer"; 
 
 export async function POST(req: Request) {
   const { email } = await req.json();
@@ -10,11 +10,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Email is required" }, { status: 400 });
   }
 
-  // Generate a 6-digit OTP
   const otp = crypto.randomInt(100000, 999999).toString();
   const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes
 
-  // Store OTP in Firestore
   try {
     const db = admin.firestore; // Access Firestore
     await db.collection("otps").doc(email).set({ otp, expiresAt });

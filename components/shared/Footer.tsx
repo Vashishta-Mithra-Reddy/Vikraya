@@ -13,7 +13,7 @@ const Footer = () => {
             />
         </Link>
         
-        <p className="opacity-60 text-black">&copy; {new Date().getFullYear()} Vikraya. All rights reserved.</p>
+        <p className="text-gray-500">&copy; {new Date().getFullYear()} Vikraya. All rights reserved.</p>
       </div>
     </footer>
   )
