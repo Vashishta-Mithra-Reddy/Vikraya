@@ -76,7 +76,7 @@ const ProfilePage = () => {
           userAuctions.push(auction);
         }
   
-        setAuctions(userAuctions);
+        setAuctions(userAuctions.reverse());
       } catch (error) {
         console.error("Error fetching auctions:", error);
         toast.error("Failed to fetch auctions.");
