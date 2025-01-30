@@ -71,8 +71,8 @@ export default function SignInPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token }),
-        credentials: 'include'
+        body: JSON.stringify({ token })
+        // credentials: 'include'
       });
       if (!response.ok) {
         throw new Error("Failed to set authentication token.");
