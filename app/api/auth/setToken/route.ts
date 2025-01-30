@@ -12,9 +12,6 @@ export async function POST(req: Request) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    domain: process.env.NODE_ENV === "production" 
-      ? ".vercel.app" 
-      : "localhost",
     path: "/",
     maxAge: 60 * 60 * 24 * 7 
   });
