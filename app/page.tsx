@@ -71,12 +71,12 @@ export default function HomePage() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white transition-colors">
       {/* Hero Section */}
-      <section className="text-center py-20 px-4 min-h-dvh flex items-center justify-center bg-[url('/agriculture.jpeg')] bg-cover">
-        <div className="max-w-4xl mx-auto bg-white p-12 opacity-85 rounded-lg">
-          <h1 className="text-5xl font-bold mb-6 text-black">Welcome to Vikraya</h1>
-          <p className="text-xl mb-8 text-gray-600">Your premier platform for agricultural auctions</p>
+      <section className="text-center py-20 px-4 min-h-[65vh] flex items-center justify-start bg-[url('/agriculture.jpeg')] bg-cover rounded-3xl m-12">
+        <div className="max-w-4xl ml-10 bg-white p-12 opacity-90 rounded-2xl">
+          <h1 className="text-5xl font-bold mb-6 text-black text-left">Welcome to Vikraya</h1>
+          <p className="text-xl mb-8 text-gray-600 text-left">Your premier platform for agricultural auctions</p>
           <div className="flex justify-center gap-4 mb-4 flex-col sm:flex-row">
             <Link href="/auctions" className="inline-block">
               <button className="border-2 border-green-600 text-green-600 py-3 px-8 rounded-lg hover:bg-green-600 hover:text-white transition-all duration-300 text-lg font-semibold flex items-center">
@@ -94,7 +94,7 @@ export default function HomePage() {
       </section>
 
       {/* Latest Auctions Section */}
-      <section className="py-16 px-4 bg-white">
+      <section className="pb-16 pt-10 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-green-800 flex items-center justify-center">
             <Leaf className="mr-2" />
@@ -125,26 +125,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-4 bg-white mb-12">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-black">Why Choose Vikraya?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-4 text-black">Transparent Bidding</h3>
-              <p className="text-gray-600">Real-time updates and fair pricing for all participants</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-4 text-black">Quality Assurance</h3>
-              <p className="text-gray-600">All listed crops undergo rigorous quality checks</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-4 text-black">Secure Transactions</h3>
-              <p className="text-gray-600">Safe and reliable payment processing for buyers and sellers</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </main>
   )
 }
