@@ -97,7 +97,7 @@ export default function HomePage() {
       <section className="pb-16 pt-10 px-4 bg-white wrapper">
         <div className="max-w-full mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-green-800 flex items-center justify-center">
-            <Leaf className="mr-2" />
+            <Leaf className="mr-3 animate-bounce" />
             Latest Listings
           </h2>
 
@@ -117,7 +117,7 @@ export default function HomePage() {
 
           <div className="text-center mt-12">
             <Link href="/auctions" className="inline-block">
-              <button className="border-2 border-green-600 text-green-600 py-2 px-6 rounded-lg hover:bg-green-600 hover:text-white transition-all duration-300">
+              <button className="border-2 border-green-600 text-green-600 py-2 px-6 mb-8 rounded-lg hover:bg-green-600 hover:text-white transition-all duration-300">
                 View All Auctions
               </button>
             </Link>

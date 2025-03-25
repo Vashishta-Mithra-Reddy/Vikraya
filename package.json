@@ -21,6 +21,7 @@
     "ethers": "^6.13.5",
     "firebase": "^11.2.0",
     "firebase-admin": "^13.0.2",
+    "framer-motion": "^12.6.0",
     "jose": "^5.9.6",
     "lucide-react": "^0.473.0",
     "next": "15.1.4",

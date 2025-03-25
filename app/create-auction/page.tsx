@@ -119,7 +119,7 @@ const CreateAuction = () => {
   }
 
   return (
-    <Card className="max-w-3xl mx-auto mt-10 mb-12">
+    <Card className="max-w-3xl mx-auto mt-10 mb-12 p-4">
       <CardHeader>
         <CardTitle className="text-2xl">Create Auction</CardTitle>
       </CardHeader>
