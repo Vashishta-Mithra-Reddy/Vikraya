@@ -26,6 +26,7 @@ interface AuctionData {
   isCancelled?: boolean
   isPaused?: boolean
   isClosed?: boolean
+  minBid?: string // Add minBid to interface
 }
 
 const AuctionDetails = () => {
@@ -67,6 +68,7 @@ const AuctionDetails = () => {
               isCancelled: auctionData.isCancelled,
               isPaused: auctionData.isPaused,
               isClosed: auctionData.isClosed,
+              minBid: auctionData.minBid || "1", // Add minBid from Firestore
             })
           }
           setLoading(false)
@@ -189,6 +191,14 @@ const AuctionDetails = () => {
                     <span className="font-semibold text-lg text-gray-900">
                       {auctionData.currentBid} ETH
                     </span>
+                  </div>
+                  {/* Add minimum bid information */}
+                  <div className="flex items-center space-x-2 col-span-2">
+                    <div className="bg-blue-50 p-2 rounded-lg w-full">
+                      <p className="text-blue-800 text-sm">
+                        <span className="font-medium">Minimum Bid:</span> {auctionData.minBid} ETH
+                      </p>
+                    </div>
                   </div>
                 </div>
 
