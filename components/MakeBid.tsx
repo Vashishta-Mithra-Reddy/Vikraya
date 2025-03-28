@@ -18,6 +18,7 @@ interface MakeBidProps {
 const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
   const [bidAmount, setBidAmount] = useState<string>("");
   const [highestBid, setHighestBid] = useState<string>("0");
+  const [minBid, setMinBid] = useState<string>("0");
   const [loading, setLoading] = useState<boolean>(false);
 
   // Smart contract details
@@ -49,7 +50,7 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
   ];
 
   useEffect(() => {
-    const fetchHighestBid = async () => {
+    const fetchAuctionData = async () => {
       try {
         if (!window.ethereum) throw new Error("Metamask is not installed");
 
@@ -57,14 +58,18 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
         const contract = new ethers.Contract(contractAddress, abi, provider);
 
         const auction = await contract.auctions(Number(auctionId));
-        setHighestBid(ethers.formatEther(auction.highestBid));
+        const currentHighestBid = ethers.formatEther(auction.highestBid);
+        const minimumBid = ethers.formatEther(auction.minBid);
+        
+        setHighestBid(currentHighestBid);
+        setMinBid(minimumBid);
       } catch (err) {
         console.error(err);
-        toast.error("Error fetching highest bid");
+        toast.error("Error fetching auction data");
       }
     };
 
-    fetchHighestBid();
+    fetchAuctionData();
   }, [auctionId]);
 
   const handlePlaceBid = async (e: React.FormEvent) => {
@@ -103,6 +108,11 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
     }
   };
 
+  // Determine the effective minimum bid (either minBid or highestBid, whichever is higher)
+  const effectiveMinBid = parseFloat(highestBid) > parseFloat(minBid) 
+    ? highestBid 
+    : minBid;
+
   return (
     <Card className="max-w-3xl mx-auto mt-6">
       <CardHeader>
@@ -117,8 +127,8 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
               type="number"
               value={bidAmount}
               onChange={(e) => setBidAmount(e.target.value)}
-              placeholder={`Min: ${highestBid} ETH`}
-              min={highestBid}
+              placeholder={`Min: ${effectiveMinBid} ETH`}
+              min={effectiveMinBid}
               step="0.001"
               required
             />
@@ -126,7 +136,7 @@ const MakeBid: React.FC<MakeBidProps> = ({ auctionId, userEmail }) => {
           <Button
             type="submit"
             className="w-full"
-            disabled={loading || !bidAmount || parseFloat(bidAmount) <= parseFloat(highestBid)}
+            disabled={loading || !bidAmount || parseFloat(bidAmount) <= parseFloat(effectiveMinBid)}
           >
             {loading ? "Placing Bid..." : "Place Bid"}
           </Button>
