@@ -10,6 +10,8 @@ import { db, auth } from "@/utils/firebase";
 import { useAuth } from "@/context/AuthContext";
 import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 import { OtpComponent } from "@/components/OtpHandler";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import Image from "next/image"
 
 const ProfilePage = () => {
   const [auctions, setAuctions] = useState<any[]>([]);
@@ -170,12 +172,38 @@ const ProfilePage = () => {
           return (
             <Card key={auction.id} className="max-w-sm w-full overflow-hidden">
               <div className="relative h-48">
-                <img
-                  src={auction.images}
-                  alt={auction.cropName}
-                  className="w-full h-48 object-cover"
-                />
-                <Badge className="absolute top-3 right-3 bg-green-500 text-white text-sm font-bold px-2 py-1">
+                {auction.images && auction.images.length > 0 ? (
+                  <Carousel className="w-full h-48">
+                    <CarouselContent>
+                      {Array.isArray(auction.images) ? (
+                        auction.images.map((image: string, idx: number) => (
+                          <CarouselItem key={idx} className="h-48">
+                            <img
+                              src={image}
+                              alt={`${auction.cropName} image ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </CarouselItem>
+                        ))
+                      ) : (
+                        <CarouselItem className="h-48">
+                          <img
+                            src={auction.images}
+                            alt={auction.cropName}
+                            className="w-full h-full object-cover"
+                          />
+                        </CarouselItem>
+                      )}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
+                ) : (
+                  <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <p className="text-gray-500">No image available</p>
+                  </div>
+                )}
+                <Badge className="absolute top-3 right-3 bg-green-500 text-white text-sm font-bold px-2 py-1 z-10">
                   Grade: {auction.grade}
                 </Badge>
               </div>
