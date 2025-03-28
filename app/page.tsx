@@ -73,19 +73,23 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white transition-colors">
       {/* Hero Section */}
-      <section className="text-center py-20 px-4 min-h-[65vh] flex items-center justify-start bg-[url('/agriculture.jpeg')] bg-cover rounded-2xl m-12">
-        <div className="max-w-4xl ml-10 bg-white p-12 opacity-90 rounded-2xl">
-          <h1 className="text-5xl font-bold mb-6 text-black text-left">Welcome to Vikraya</h1>
-          <p className="text-xl mb-8 text-gray-600 text-left">Your premier platform for agricultural auctions</p>
-          <div className="flex justify-center gap-4 mb-4 flex-col sm:flex-row">
+      <section className="text-center py-20 sm:py-20 px-8 sm:px-4 min-h-[65vh] flex items-center justify-center sm:justify-start bg-[url('/agriculture.jpeg')] bg-cover rounded-xl sm:rounded-2xl m-10 sm:m-12">
+        <div className="w-[95%] sm:w-auto max-w-4xl mx-auto sm:mx-0 sm:ml-10 bg-white p-8 sm:p-12 opacity-90 rounded-xl sm:rounded-2xl">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 sm:mb-6 text-black text-left">
+            Welcome to Vikraya
+          </h1>
+          <p className="text-lg sm:text-xl mb-6 sm:mb-8 text-gray-600 text-left">
+            Your premier platform for agricultural auctions
+          </p>
+          <div className="flex justify-center sm:justify-start gap-4 mb-4 flex-col sm:flex-row">
             <Link href="/auctions" className="inline-block">
-              <button className="border-2 border-green-600 text-green-600 py-3 px-8 rounded-lg hover:bg-green-600 hover:text-white transition-all duration-300 text-lg font-semibold flex items-center">
+              <button className="w-full sm:w-auto border-2 border-green-600 text-green-600 py-3 px-8 rounded-lg hover:bg-green-600 hover:text-white transition-all duration-300 text-lg font-semibold flex items-center justify-center">
                 Browse Auctions
                 <ArrowRight className="ml-2" />
               </button>
             </Link>
             <Link href="/create-auction" className="inline-block">
-              <button className="border-2 border-green-600 bg-green-600 text-white py-3 px-8 rounded-lg hover:bg-green-700 hover:border-green-700 transition-all duration-300 text-lg font-semibold">
+              <button className="w-full sm:w-auto border-2 border-green-600 bg-green-600 text-white py-3 px-8 rounded-lg hover:bg-green-700 hover:border-green-700 transition-all duration-300 text-lg font-semibold">
                 Create Auction
               </button>
             </Link>
