@@ -73,7 +73,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white transition-colors">
       {/* Hero Section */}
-      <section className="text-center py-20 sm:py-20 px-8 sm:px-4 min-h-[65vh] flex items-center justify-center sm:justify-start bg-[url('/agriculture.jpeg')] bg-cover rounded-xl sm:rounded-2xl m-10 sm:m-12">
+      <section className="text-center py-20 sm:py-20 px-8 sm:px-4 min-h-[65vh] flex items-center justify-center sm:justify-start bg-[url('/agriculture.jpeg')] bg-cover rounded-xl sm:rounded-2xl m-8 sm:m-12">
         <div className="w-[95%] sm:w-auto max-w-4xl mx-auto sm:mx-0 sm:ml-10 bg-white p-8 sm:p-12 opacity-90 rounded-xl sm:rounded-2xl">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 sm:mb-6 text-black text-left">
             Welcome to Vikraya
@@ -105,19 +105,17 @@ export default function HomePage() {
             Latest Listings
           </h2>
 
-          {loading ? (
-            <Loading />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-around place-items-center">
-              {latestAuctions.map((auction) => (
-                <AuctionCard
-                  key={auction.id}
-                  {...auction}
-                  className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-white"
-                />
-              ))}
-            </div>
-          )}
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-around place-items-center">
+            {latestAuctions.map((auction) => (
+              <AuctionCard
+                key={auction.id}
+                {...auction}
+                className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-white"
+              />
+            ))}
+          </div>
+        
 
           <div className="text-center mt-12">
             <Link href="/auctions" className="inline-block">
