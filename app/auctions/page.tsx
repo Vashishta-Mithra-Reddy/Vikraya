@@ -75,9 +75,9 @@ export default function AuctionsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 wrapper min-h-dvh">
-      <h1 className="text-4xl font-bold text-left my-8 mb-12">Auctions</h1>
-      <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="container mx-auto px-4 wrapper min-h-dvh mt-8 mb-20">
+      <h1 className="text-5xl font-bold text-left my-8 mb-12  animate-in fade-in slide-in-from-left-4 slide-in-from-top-4 duration-500">Auctions</h1>
+      <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6  animate-in fade-in slide-in-from-bottom-16 duration-500">
       {auctions.map((auction) => {
         const isAuctionExpired = auction.endDate && !isNaN(new Date(auction.endDate).getTime()) && new Date() > new Date(auction.endDate);
 

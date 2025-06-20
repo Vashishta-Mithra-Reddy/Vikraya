@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header id="header" className="w-full">
-      <div className="flex items-center justify-between p-2 px-12 bg-white border-b">
+      <div className="flex items-center justify-between p-2 px-20 bg-white border-b">
         {/* Logo */}
         <div>
           <Link href={"/"}>
@@ -20,6 +20,7 @@ const Header = () => {
               src={"/logos/vikraya.png"}
               width={70}
               height={70}
+              priority
               alt="Vikraya Logo"
               unoptimized={true}
             />

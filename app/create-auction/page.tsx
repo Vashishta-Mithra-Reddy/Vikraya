@@ -119,9 +119,9 @@ const CreateAuction = () => {
   }
 
   return (
-    <Card className="max-w-3xl mx-auto mt-10 mb-12 p-4">
+    <Card className="max-w-3xl mx-auto mt-10 mb-12 p-4 animate-in slide-in-from-bottom-20 duration-500">
       <CardHeader>
-        <CardTitle className="text-2xl">Create Auction</CardTitle>
+        <CardTitle className="text-4xl">Create Auction</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">

@@ -101,7 +101,7 @@ export default function SignInPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center bg-gray-100 transition-all"
+      className="flex flex-col items-center justify-center bg-gray-100 transition-all duration-700"
       style={{ height: availableHeight }}
     >
       
