@@ -4,6 +4,7 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Toaster position="top-center" reverseOrder={false} />
         <Header/>
         {children}
+        <Analytics/>
         <Footer/>
         </AuthProvider>
       </body>
